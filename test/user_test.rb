@@ -1,4 +1,5 @@
 require "test_helper"
+require "active_record"
 require "user"
 
 class UserTest < ActiveSupport::TestCase
@@ -9,12 +10,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_find
-    user = User.find(id)
+    user = User.find(1)
     assert_kind_of User, user
     assert_equal 1, user.id
   end
-
 end
-
-
- 
