@@ -8,17 +8,24 @@ module ActiveRecord
       @attributes = attributes
     end
 
-    def id
-      @attributes[:id]
-    end
+    def method_missing(name, *args)
+      columns = @@connection.columns(self.class.table_name)
 
-    def name
-      @attributes[:name]
+      if columns.include?(name) #if name correspond to a column name, return the value of that attribute.
+        @attributes[name]
+      else
+        super
+      end
     end
 
     def self.find(id)
-      attributes = @@connection.execute("SELECT * FROM users WHERE id = #{id.to_i} LIMIT 1").first
+      attributes = @@connection.execute("SELECT * FROM #{table_name} WHERE id = #{id.to_i} LIMIT 1").first
       new attributes
     end
+
+    def self.table_name
+      name.downcase + "s"  # => "users"
+    end
+
   end
 end
