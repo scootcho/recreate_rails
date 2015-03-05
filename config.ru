@@ -3,8 +3,16 @@
 
 class App
   def call(env)
-    # Return the response array here
+    [
+      200,
+      { "Content-Type" => "text/plain" },
+      [ env["PATH_INFO"] ]
+    ]
   end
 end
 
 run App.new
+
+
+
+
