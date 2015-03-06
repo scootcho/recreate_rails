@@ -6,8 +6,14 @@ class Application
     request = Rack::Request.new(env)
     response = Rack::Response.new
 
-    controler_name, action_name = route(request.path_info)
+    controller_name, action_name = route(request.path_info) # /home/index
     # ["home", "index"]
+    
+    controller_class = load_controller_class(controller_name) #controller_name = "home" => #HomeController
+    controller = controller_class.new #initializes HomeController and pass the logics there.
+    controller.request = request
+    controller.response = response
+    controller.process action_name # calls: controller.index
     
     # "home" => HomeController
     response.finish
