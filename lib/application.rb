@@ -1,5 +1,15 @@
 require "action_controller"
 require "application_controller"
+require "active_record"
+
+#Example of const_missing
+#
+#class Object
+#  def const_missing(name)
+#    name # :User => "user"
+#    require name.to_s.downcase    #this will require "user" to make sure user.rb is loaded as database
+#  end
+#end
 
 class Application
   def call(env)
