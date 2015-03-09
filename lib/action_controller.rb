@@ -1,9 +1,15 @@
+require "filtering"
+
 module ActionController
-  class Base
+  class Metal
     attr_accessor :request, :response
 
     def process(action_name)
-      self.send action_name #this sends the action_name method to the Class 
+      send action_name #this sends the action_name method to the Class 
     end
+  end  
+
+  class Base < Metal
+    include Filtering
   end
 end
