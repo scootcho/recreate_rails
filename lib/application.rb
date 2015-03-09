@@ -1,6 +1,8 @@
 require "action_controller"
 require "application_controller"
 require "active_record"
+require "router"
+require "config/routes"
 
 #Example of const_missing
 #
@@ -29,10 +31,11 @@ class Application
     response.finish
   end 
 
-  def route(path)
+  def route(path) # request.path_info is passed in as path
     # => "home/index" => ["", "home", "index"]
-    _, controller_name, action_name = path.split("/") 
-    [controller_name || "home", action_name || "index" ]
+    #_, controller_name, action_name = path.split("/") 
+    #[controller_name || "home", action_name || "index" ]
+    Routes.recognize(path)
   end
 
   def load_controller_class(name)
